@@ -6,10 +6,9 @@ const {
     ButtonStyle
 } = require('discord.js');
 
-// pamięć giveawayów
 const giveaways = new Map();
 
-// funkcja parsowania czasu (10s, 5m, 1h, 2d)
+// funkcja parsowania czasu
 function parseTime(input) {
     const match = input.match(/^(\d+)(s|m|h|d)$/);
     if (!match) return null;
@@ -59,13 +58,6 @@ module.exports = {
             });
         }
 
-        if (zwyciezcy < 1) {
-            return interaction.reply({
-                content: '❌ Liczba zwycięzców musi być większa od 0.',
-                ephemeral: true
-            });
-        }
-
         const endTimestamp = Date.now() + duration;
 
         const embed = new EmbedBuilder()
@@ -73,7 +65,7 @@ module.exports = {
             .setColor('#9b59b6')
             .addFields(
                 { name: '🏆 Nagroda', value: nagroda },
-                { name: '⏰ Czas trwania', value: czasInput, inline: true },
+                { name: '⏰ Pozostały czas', value: czasInput, inline: true },
                 { name: '👑 Zwycięzców', value: `${zwyciezcy}`, inline: true },
                 { name: '👥 Uczestnicy', value: '0', inline: true },
             )
@@ -101,8 +93,26 @@ module.exports = {
             endTimestamp
         });
 
-        // timer losowania
+        // ====== DYNAMICZNE ODLICZANIE ======
+        const interval = setInterval(async () => {
+            const data = giveaways.get(message.id);
+            if (!data) return clearInterval(interval);
+
+            const remaining = data.endTimestamp - Date.now();
+            if (remaining <= 0) return;
+
+            const seconds = Math.floor(remaining / 1000);
+
+            const updatedEmbed = EmbedBuilder.from(embed);
+            updatedEmbed.data.fields[1].value = `${seconds}s`;
+
+            await message.edit({ embeds: [updatedEmbed], components: [row] });
+        }, 5000);
+
+        // ====== LOSOWANIE ======
         setTimeout(async () => {
+            clearInterval(interval);
+
             const data = giveaways.get(message.id);
             if (!data) return;
 
@@ -112,7 +122,7 @@ module.exports = {
             if (!channel) return;
 
             if (usersArray.length === 0) {
-                await channel.send('🎉 Giveaway zakończony — brak uczestników, konkurs anulowany.');
+                await channel.send('🎉 Giveaway zakończony — brak uczestników.');
                 giveaways.delete(message.id);
                 return;
             }
@@ -128,7 +138,7 @@ module.exports = {
             const winnersMention = winners.map(id => `<@${id}>`).join(', ');
 
             const resultEmbed = new EmbedBuilder()
-                .setTitle('🎉 WYNIKI GIVEAWAY’A × VNV-SHOP 🎉')
+                .setTitle('🎉 Wyniki konkursu 🎉')
                 .setColor('#9b59b6')
                 .addFields(
                     { name: '🏆 Nagroda', value: data.nagroda },
@@ -136,13 +146,12 @@ module.exports = {
                     { name: '👥 Uczestnicy', value: `${usersArray.length}` },
                 );
 
-            await channel.send({ content: '🎉 Giveaway zakończony!', embeds: [resultEmbed] });
+            await channel.send({ content: `🎉 Gratulacje ${winnersMention}!`, embeds: [resultEmbed] });
 
             giveaways.delete(message.id);
         }, duration);
     },
 
-    // obsługa kliknięcia przycisku
     async button(interaction) {
         if (interaction.customId !== 'join_giveaway') return;
 
@@ -158,7 +167,7 @@ module.exports = {
 
         if (data.users.has(userId)) {
             return interaction.reply({
-                content: '❌ Już bierzesz udział w tym giveaway’u!',
+                content: '❌ Już bierzesz udział!',
                 ephemeral: true
             });
         }
@@ -166,10 +175,7 @@ module.exports = {
         data.users.add(userId);
 
         const embed = EmbedBuilder.from(interaction.message.embeds[0]);
-        const fields = embed.data.fields;
-        const participantsField = fields.find(f => f.name === '👥 Uczestnicy');
-        participantsField.value = `${data.users.size}`;
-        embed.setFields(fields);
+        embed.data.fields[3].value = `${data.users.size}`;
 
         await interaction.update({ embeds: [embed], components: interaction.message.components });
 

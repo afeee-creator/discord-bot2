@@ -151,7 +151,7 @@ module.exports = {
 
             await channel.send({ content: `🎉 Gratulacje ${winnersMention}!`, embeds: [resultEmbed] });
 
-            giveaways.delete(message.id);
+            // giveaways.delete(message.id);
         }, duration);
     },
 

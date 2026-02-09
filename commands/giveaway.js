@@ -6,9 +6,8 @@ const {
     ButtonStyle
 } = require('discord.js');
 
+// GLOBALNA pamięć giveawayów (współdzielona z reroll.js)
 const giveaways = new Map();
-module.exports.giveaways = giveaways;
-
 
 // funkcja parsowania czasu
 function parseTime(input) {
@@ -28,6 +27,8 @@ function parseTime(input) {
 }
 
 module.exports = {
+    giveaways, // ← NAJWAŻNIEJSZE, żeby reroll działał
+
     data: new SlashCommandBuilder()
         .setName('giveaway')
         .setDescription('Tworzy giveaway z przyciskiem')
@@ -95,7 +96,7 @@ module.exports = {
             endTimestamp
         });
 
-        // ====== DYNAMICZNE ODLICZANIE ======
+        // ====== ODLICZANIE ======
         const interval = setInterval(async () => {
             const data = giveaways.get(message.id);
             if (!data) return clearInterval(interval);

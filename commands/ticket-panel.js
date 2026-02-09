@@ -14,8 +14,11 @@ module.exports = {
 
     async execute(interaction) {
         const embed = new EmbedBuilder()
-            .setTitle('🎫 System Ticketów')
-            .setDescription('Wybierz typ ticketu z menu poniżej.')
+            .setTitle('🎫 VNV-SHOP × STWÓRZ TICKET')
+            .setDescription(
+                'Masz problem, chcesz złożyć zamówienie lub masz jakieś pytania?\n\n' +
+                '📩 × Aby utworzyć ticket wybierz odpowiednią kategorię!'
+            )
             .setColor('#3498db');
 
         const menu = new StringSelectMenuBuilder()

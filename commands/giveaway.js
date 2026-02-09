@@ -7,6 +7,8 @@ const {
 } = require('discord.js');
 
 const giveaways = new Map();
+module.exports.giveaways = giveaways;
+
 
 // funkcja parsowania czasu
 function parseTime(input) {

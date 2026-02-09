@@ -7,6 +7,7 @@ const {
 } = require('discord.js');
 
 const LOG_CHANNEL = '1470491974560780408';
+const CEO_ROLE = '1450927028164362455';
 
 module.exports = {
     name: 'interactionCreate',
@@ -28,7 +29,6 @@ module.exports = {
                 });
             }
 
-            // Nazwy kanałów wg Twojej opcji C
             const names = {
                 zamowienia: `zamowienie-${user.id}`,
                 support: `support-${user.id}`,
@@ -72,7 +72,7 @@ module.exports = {
             const row = new ActionRowBuilder().addComponents(closeBtn);
 
             await channel.send({
-                content: `<@${user.id}>`,
+                content: `<@${user.id}> <@&${CEO_ROLE}>`,
                 embeds: [embed],
                 components: [row]
             });

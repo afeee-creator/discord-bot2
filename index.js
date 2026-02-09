@@ -46,7 +46,7 @@ client.once('ready', async () => {
     }
 });
 
-// ====== OBSŁUGA INTERAKCJI ======
+// ====== OBSŁUGA KOMEND I PRZYCISKÓW ======
 
 client.on('interactionCreate', async interaction => {
     // Komendy slash
@@ -65,7 +65,7 @@ client.on('interactionCreate', async interaction => {
         }
     }
 
-    // Przyciski
+    // Przyciski (opcjonalne, jeśli jakieś komendy ich używają)
     if (interaction.isButton()) {
         for (const cmd of client.commands.values()) {
             if (cmd.button) {
@@ -74,5 +74,25 @@ client.on('interactionCreate', async interaction => {
         }
     }
 });
+
+// ====== ŁADOWANIE EVENTÓW Z FOLDERU "events" (NAPRAWIA TICKETY!) ======
+
+const eventsPath = path.join(__dirname, 'events');
+if (fs.existsSync(eventsPath)) {
+    const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+
+    for (const file of eventFiles) {
+        const filePath = path.join(eventsPath, file);
+        const event = require(filePath);
+
+        if (event.once) {
+            client.once(event.name, (...args) => event.execute(...args, client));
+        } else {
+            client.on(event.name, (...args) => event.execute(...args, client));
+        }
+    }
+} else {
+    console.warn('Folder "events" nie istnieje — utwórz go, aby eventy działały.');
+}
 
 client.login(process.env.TOKEN);

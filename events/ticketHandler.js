@@ -3,11 +3,22 @@ const {
     ActionRowBuilder,
     ButtonBuilder,
     ButtonStyle,
-    PermissionFlagsBits
+    PermissionFlagsBits,
+    AttachmentBuilder
 } = require('discord.js');
+
+const fs = require('fs');
+const path = require('path');
 
 const LOG_CHANNEL = '1470491974560780408';
 const CEO_ROLE = '1450927028164362455';
+
+const countersPath = path.join(__dirname, '../ticketCounters.json');
+let counters = require(countersPath);
+
+function saveCounters() {
+    fs.writeFileSync(countersPath, JSON.stringify(counters, null, 2));
+}
 
 module.exports = {
     name: 'interactionCreate',
@@ -29,11 +40,17 @@ module.exports = {
                 });
             }
 
+            // Zwiększamy licznik
+            counters[type]++;
+            saveCounters();
+
+            const number = String(counters[type]).padStart(3, '0');
+
             const names = {
-                zamowienia: `zamowienie-${user.id}`,
-                support: `support-${user.id}`,
-                wspolpraca: `wspolpraca-${user.id}`,
-                problem_zamowienie: `problem-${user.id}`
+                zamowienia: `zamowienie-${number}`,
+                support: `support-${number}`,
+                wspolpraca: `wspolpraca-${number}`,
+                problem_zamowienie: `problem-${number}`
             };
 
             const channel = await interaction.guild.channels.create({
@@ -62,7 +79,7 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('🎫 Ticket otwarty')
                 .setDescription('Opisz swój problem lub sprawę, a administracja wkrótce odpowie.')
-                .setColor('#2ecc71');
+                .setColor('#6A0DAD');
 
             const closeBtn = new ButtonBuilder()
                 .setCustomId('close_ticket_confirm')
@@ -104,7 +121,7 @@ module.exports = {
             });
         }
 
-        // ====== ANULOWANIE ZAMKNIĘCIA ======
+        // ====== ANULOWANIE ======
         if (interaction.isButton() && interaction.customId === 'cancel_close') {
             return interaction.update({
                 content: '❎ Zamknięcie anulowane.',
@@ -112,9 +129,52 @@ module.exports = {
             });
         }
 
-        // ====== ZAMYKANIE TICKETA ======
+        // ====== ZAMYKANIE TICKETA + TRANSKRYPT ======
         if (interaction.isButton() && interaction.customId === 'close_ticket') {
             const channel = interaction.channel;
+
+            // Pobieranie wiadomości
+            const messages = await channel.messages.fetch({ limit: 100 });
+            const sorted = messages.sort((a, b) => a.createdTimestamp - b.createdTimestamp);
+
+            // Tworzenie HTML
+            let html = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transkrypt - ${channel.name}</title>
+<style>
+body { font-family: Arial; background: white; padding: 20px; }
+.msg { margin-bottom: 15px; }
+.author { font-weight: bold; }
+.time { color: gray; font-size: 12px; }
+</style>
+</head>
+<body>
+<h2>Transkrypt: ${channel.name}</h2>
+<hr>
+`;
+
+            sorted.forEach(msg => {
+                html += `
+<div class="msg">
+    <div class="author">${msg.author.tag}</div>
+    <div class="time">${new Date(msg.createdTimestamp).toLocaleString()}</div>
+    <div class="content">${msg.content || '[Załącznik]'}</div>
+</div>
+`;
+            });
+
+            html += `
+</body>
+</html>
+`;
+
+            const filePath = path.join(__dirname, `../transcript-${channel.name}.html`);
+            fs.writeFileSync(filePath, html);
+
+            const attachment = new AttachmentBuilder(filePath);
 
             const logEmbed = new EmbedBuilder()
                 .setTitle('📁 Ticket zamknięty')
@@ -123,7 +183,12 @@ module.exports = {
                 .setTimestamp();
 
             const logChannel = interaction.guild.channels.cache.get(LOG_CHANNEL);
-            if (logChannel) logChannel.send({ embeds: [logEmbed] });
+            if (logChannel) {
+                await logChannel.send({
+                    embeds: [logEmbed],
+                    files: [attachment]
+                });
+            }
 
             await interaction.update({
                 content: '🗑 Ticket zostanie zamknięty za 3 sekundy...',

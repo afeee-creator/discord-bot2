@@ -18,7 +18,7 @@ module.exports = {
         }
 
         const tekst = `
-``Chcesz mieć dostęp do niezawodnych produktów i wyjątkowych ofert? 
+Chcesz mieć dostęp do niezawodnych produktów i wyjątkowych ofert? 
 Dołącz do naszego discorda już teraz!
 
 Oferujemy:
@@ -30,7 +30,7 @@ Oferujemy:
 ➼ Szybkie bezproblemowe zakupy.
 
 Dołącz do naszej Discorda już dziś i odkryj niezawodne produkty i najlepsze oferty, 
-które pozwolą Ci zaoszczędzić pieniądze i cieszyć się zakupami online! ``
+które pozwolą Ci zaoszczędzić pieniądze i cieszyć się zakupami online!
 https://discord.gg/9y3XuZzC33
         `;
 

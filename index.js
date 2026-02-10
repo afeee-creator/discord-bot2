@@ -9,7 +9,11 @@ const {
 } = require('discord.js');
 
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds]
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildPresences
+    ]
 });
 
 client.commands = new Collection();
@@ -44,6 +48,24 @@ client.once('ready', async () => {
     } catch (error) {
         console.error(error);
     }
+
+    // ====== DYNAMICZNY STATUS: OGLĄDA X OSÓB ONLINE ======
+    setInterval(() => {
+        const guild = client.guilds.cache.get(process.env.GUILD_ID);
+        if (!guild) return;
+
+        const onlineMembers = guild.members.cache.filter(
+            m => m.presence && m.presence.status !== 'offline'
+        ).size;
+
+        client.user.setPresence({
+            activities: [{
+                name: `${onlineMembers} osób online`,
+                type: 3 // WATCHING
+            }],
+            status: 'online'
+        });
+    }, 10000); // odświeżanie co 10 sekund
 });
 
 // ====== OBSŁUGA KOMEND I PRZYCISKÓW ======
@@ -75,7 +97,7 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-// ====== ŁADOWANIE EVENTÓW Z FOLDERU "events" (NAPRAWIA TICKETY!) ======
+// ====== ŁADOWANIE EVENTÓW Z FOLDERU "events" ======
 
 const eventsPath = path.join(__dirname, 'events');
 if (fs.existsSync(eventsPath)) {

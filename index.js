@@ -12,7 +12,9 @@ const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildPresences
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildMessages,   // potrzebne do widzenia wiadomości
+        GatewayIntentBits.MessageContent    // potrzebne do czytania treści wiadomości
     ]
 });
 
@@ -65,13 +67,12 @@ client.once('ready', async () => {
             }],
             status: 'online'
         });
-    }, 10000); // odświeżanie co 10 sekund
+    }, 10000);
 });
 
 // ====== OBSŁUGA KOMEND I PRZYCISKÓW ======
 
 client.on('interactionCreate', async interaction => {
-    // Komendy slash
     if (interaction.isChatInputCommand()) {
         const command = client.commands.get(interaction.commandName);
         if (!command) return;
@@ -87,7 +88,6 @@ client.on('interactionCreate', async interaction => {
         }
     }
 
-    // Przyciski (opcjonalne, jeśli jakieś komendy ich używają)
     if (interaction.isButton()) {
         for (const cmd of client.commands.values()) {
             if (cmd.button) {

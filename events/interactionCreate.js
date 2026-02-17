@@ -68,7 +68,7 @@ module.exports = {
                 });
             }
 
-            // LEAGUE OF LEGENDS — SELECT MENU
+            // ⭐⭐⭐ POPRAWIONA SEKCJA LOL — GUI ⭐⭐⭐
             if (value === 'lol') {
 
                 const lolMenu = new ActionRowBuilder().addComponents(
@@ -76,9 +76,21 @@ module.exports = {
                         .setCustomId('lol_menu')
                         .setPlaceholder('Wybierz kategorię…')
                         .addOptions([
-                            { label: '<:lol:1463243204437479545> Skiny', value: 'skins' },
-                            { label: '<:lol:1463243204437479545> Przepustki', value: 'passes' },
-                            { label: '<:lol:1463243204437479545> Inne', value: 'other' }
+                            {
+                                label: 'Skiny',
+                                value: 'skins',
+                                emoji: { name: 'lol', id: '1463243204437479545' }
+                            },
+                            {
+                                label: 'Przepustki',
+                                value: 'passes',
+                                emoji: { name: 'lol', id: '1463243204437479545' }
+                            },
+                            {
+                                label: 'Inne',
+                                value: 'other',
+                                emoji: { name: 'lol', id: '1463243204437479545' }
+                            }
                         ])
                 );
 

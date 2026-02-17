@@ -1,13 +1,19 @@
+const { ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
 
         if (!interaction.isStringSelectMenu()) return;
 
+        // -------------------------------
+        // GŁÓWNE MENU
+        // -------------------------------
         if (interaction.customId === 'shop_menu') {
 
             const value = interaction.values[0];
 
+            // DISCORD
             if (value === 'discord') {
                 return interaction.reply({
                     ephemeral: true,
@@ -21,42 +27,57 @@ module.exports = {
                 });
             }
 
+            // SOCIAL BOOSTING — SELECT MENU
             if (value === 'social') {
+
+                const socialMenu = new ActionRowBuilder().addComponents(
+                    new StringSelectMenuBuilder()
+                        .setCustomId('social_menu')
+                        .setPlaceholder('Wybierz platformę…')
+                        .addOptions([
+                            { label: 'Instagram', value: 'ig' },
+                            { label: 'TikTok', value: 'tt' },
+                            { label: 'Spotify', value: 'sp' },
+                            { label: 'Twitch', value: 'tw' },
+                            { label: 'YouTube', value: 'yt' },
+                            { label: 'Kick', value: 'kick' }
+                        ])
+                );
+
                 return interaction.reply({
                     ephemeral: true,
-                    content:
-                        '**SOCIAL BOOSTING — WYBIERZ PLATFORMĘ**\n' +
-                        'Instagram / TikTok / Spotify / Twitch / YouTube / Kick\n' +
-                        'Napisz na ticket, aby wybrać platformę.'
+                    content: '**SOCIAL BOOSTING — WYBIERZ PLATFORMĘ**',
+                    components: [socialMenu]
                 });
             }
 
-            if (value === 'vpn') {
-                return interaction.reply({
-                    ephemeral: true,
-                    content:
-                        '**VPN**\n' +
-                        'Surfshark Lifetime — 7 zł'
-                });
-            }
-
+            // LEAGUE OF LEGENDS — SELECT MENU
             if (value === 'lol') {
+
+                const lolMenu = new ActionRowBuilder().addComponents(
+                    new StringSelectMenuBuilder()
+                        .setCustomId('lol_menu')
+                        .setPlaceholder('Wybierz kategorię…')
+                        .addOptions([
+                            { label: ':1463243204437479545: Skiny', value: 'skins' },
+                            { label: ':1463243204437479545: Przepustki', value: 'passes' },
+                            { label: ':1463243204437479545: Inne', value: 'other' }
+                        ])
+                );
+
                 return interaction.reply({
                     ephemeral: true,
-                    content:
-                        '**LEAGUE OF LEGENDS — WYBIERZ PODKATEGORIĘ**\n' +
-                        '• Cennik Skinów\n' +
-                        '• Ceny Przepustek\n' +
-                        '• Inne\n' +
-                        'Napisz na ticket, aby wybrać sekcję.'
+                    content: '**LEAGUE OF LEGENDS — WYBIERZ KATEGORIĘ**',
+                    components: [lolMenu]
                 });
             }
 
+            // STREAMINGI
             if (value === 'streamingi') {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        '**STREAMINGI**\n' +
+                        '**STREAMINGI**\n\n' +
                         'Disney+ — 7 zł\n' +
                         'Crunchyroll — 4 zł\n' +
                         'Molotov.tv — 5 zł\n' +
@@ -65,24 +86,26 @@ module.exports = {
                 });
             }
 
+            // INNE
             if (value === 'inne') {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        '**INNE**\n' +
+                        '**INNE**\n\n' +
                         '1 miesiąc ChatGPT+ — 7 zł\n' +
                         'Lifetime Duolingo Premium — 4 zł\n' +
                         'CapCut Pro — 5 zł'
                 });
             }
 
+            // METODY / DOSTAWCY
             if (value === 'metody') {
                 return interaction.reply({
                     ephemeral: true,
                     content:
                         '**METODY / DOSTAWCY**\n\n' +
                         '**Metody:**\n' +
-                        '<:ubereats:1463242677498937399> Metoda na tanie jedzenie UE/Glovo — 8 zł\n' +
+                        'Metoda na tanie jedzenie UE/Glovo — 8 zł\n' +
                         'Metoda SMS — 5 zł\n' +
                         'Metoda VPS — 3 zł\n\n' +
                         '**Dostawcy:**\n' +
@@ -90,6 +113,140 @@ module.exports = {
                         'Dostawca Social‑Boosting — 15 zł\n' +
                         'Dostawca Discord Boost — 20 zł\n' +
                         'Dostawca Discord Nitro — 20 zł'
+                });
+            }
+        }
+
+        // -------------------------------
+        // SOCIAL BOOSTING — PODMENU
+        // -------------------------------
+        if (interaction.customId === 'social_menu') {
+
+            const platform = interaction.values[0];
+
+            if (platform === 'ig') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1462444762547228755: **Instagram** :1462444762547228755:\n' +
+                        '500 Followers — 9 zł\n' +
+                        '1000 Followers — 15 zł\n' +
+                        '2500 Followers — 37 zł\n' +
+                        '5000 Followers — 70 zł\n' +
+                        '10000 Followers — 135 zł'
+                });
+            }
+
+            if (platform === 'tt') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1462444603633307799: **TikTok** :1462444603633307799:\n' +
+                        '**Followers**\n' +
+                        '250 — 6 zł\n' +
+                        '500 — 10 zł\n' +
+                        '1000 — 15 zł\n' +
+                        '2500 — 32 zł\n' +
+                        '5000 — 60 zł\n\n' +
+                        '**Views**\n' +
+                        '1000 — 10 zł\n\n' +
+                        '**Favorites**\n' +
+                        '~100 — 5 zł'
+                });
+            }
+
+            if (platform === 'sp') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1462444451912749255: **Spotify** :1462444451912749255:\n' +
+                        '1000 Followers — 5 zł\n' +
+                        '2500 Followers — 8 zł\n' +
+                        '5000 Followers — 11 zł'
+                });
+            }
+
+            if (platform === 'tw') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1462444709602398280: **Twitch** :1462444709602398280:\n' +
+                        '250 Followers — 4 zł\n' +
+                        '500 Followers — 6 zł\n' +
+                        '1000 Followers — 10 zł\n' +
+                        '2500 Followers — 20 zł\n' +
+                        '5000 Followers — 35 zł\n' +
+                        '10000 Followers — 65 zł\n\n' +
+                        '**Widzowie/h:**\n' +
+                        'SOON'
+                });
+            }
+
+            if (platform === 'yt') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1462444416252772433: **YouTube** :1462444416252772433:\n' +
+                        'SOON'
+                });
+            }
+
+            if (platform === 'kick') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1473361345813676236: **Kick** :1473361345813676236:\n' +
+                        '**Widzowie/h**\n' +
+                        '10 — 1 zł\n' +
+                        '25 — 2 zł\n' +
+                        '50 — 3 zł\n' +
+                        '100 — 5 zł\n' +
+                        '500 — 10 zł'
+                });
+            }
+        }
+
+        // -------------------------------
+        // LEAGUE OF LEGENDS — PODMENU
+        // -------------------------------
+        if (interaction.customId === 'lol_menu') {
+
+            const pick = interaction.values[0];
+
+            if (pick === 'skins') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1463243204437479545: **CENNIK SKINÓW LOL**\n' +
+                        'Niezwykłe – 520 RP ~ 15 zł\n' +
+                        'Rzadkie – 750 RP ~ 23 zł\n' +
+                        'Epickie – 1350 RP ~ 45 zł\n' +
+                        'Legendarne – 1820 RP ~ 60 zł\n' +
+                        'Ultimate – 3250 RP ~ 95 zł\n' +
+                        'Inne ceny skinów za RP dogadujemy na tickecie'
+                });
+            }
+
+            if (pick === 'passes') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1463243204437479545: **CENY PRZEPUSTEK LOL**\n' +
+                        'Standardowa przepustka – 1650 RP ~ 55 zł\n' +
+                        'Przepustka Bundle – 2650 RP ~ 78 zł\n' +
+                        'Przepustka Bundle Premium – 3650 RP ~ 100 zł'
+                });
+            }
+
+            if (pick === 'other') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        ':1463243204437479545: **INNE**\n' +
+                        'Tajemnicza skórka – 20 zł\n' +
+                        'Tajemnicza skórka premium – 30 zł\n' +
+                        'Ikona – 10 zł\n' +
+                        '5 skrzyń hextech + klucze – 30 zł'
                 });
             }
         }

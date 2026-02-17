@@ -9,7 +9,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setColor('#ff4d6d')
-            .setTitle('<:heart~1:1470835571122376878> × VNV‑SHOP — CENNIK')
+            .setTitle('<:heart-1:1470835571122376878> × VNV‑SHOP — CENNIK')
             .setDescription(
                 '**W VNV‑SHOP oferujemy szeroki zakres usług:**\n' +
                 'n1tr0, b00sty, social‑boostingi, streamingi, metody oraz wiele innych produktów.\n\n' +
@@ -23,32 +23,39 @@ module.exports = {
             .setPlaceholder('Wybierz kategorię…')
             .addOptions([
                 {
-                    label: ':1470835571122376878: Discord',
-                    value: 'discord'
+                    label: 'Discord',
+                    value: 'discord',
+                    emoji: { id: '1470835571122376878', name: 'heart-1' }
                 },
                 {
-                    label: ':1470835571122376878: Social Boosting',
-                    value: 'social'
+                    label: 'Social Boosting',
+                    value: 'social',
+                    emoji: { id: '1470835571122376878', name: 'heart-1' }
                 },
                 {
-                    label: ':1470835571122376878: VPN',
-                    value: 'vpn'
+                    label: 'VPN',
+                    value: 'vpn',
+                    emoji: { id: '1470835571122376878', name: 'heart-1' }
                 },
                 {
-                    label: ':1470835571122376878: League of Legends',
-                    value: 'lol'
+                    label: 'League of Legends',
+                    value: 'lol',
+                    emoji: { id: '1470835571122376878', name: 'heart-1' }
                 },
                 {
-                    label: ':1470835571122376878: Streamingi',
-                    value: 'streamingi'
+                    label: 'Streamingi',
+                    value: 'streamingi',
+                    emoji: { id: '1470835571122376878', name: 'heart-1' }
                 },
                 {
-                    label: ':1470835571122376878: Inne',
-                    value: 'inne'
+                    label: 'Inne',
+                    value: 'inne',
+                    emoji: { id: '1470835571122376878', name: 'heart-1' }
                 },
                 {
-                    label: ':1470835571122376878: Metody / Dostawcy',
-                    value: 'metody'
+                    label: 'Metody / Dostawcy',
+                    value: 'metody',
+                    emoji: { id: '1470835571122376878', name: 'heart-1' }
                 }
             ]);
 

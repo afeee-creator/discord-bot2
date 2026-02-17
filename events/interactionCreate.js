@@ -22,25 +22,25 @@ module.exports = {
 
                         '**Nitro -**\n' +
                         'D1SC0RD N1TR0 GIFT\n' +
-                        '<:nitro_basic:1463269358670319626> discord nitro basic 1m - 7 zł\n' +
-                        '<:nitro_basic:1463269358670319626> discord nitro basic 1y - soon\n' +
-                        '<:nitro_boost:1463269280123453491> discord nitro boost 1m - 20 zł\n' +
-                        '<:nitro_boost:1463269280123453491> discord nitro boost 1y - soon\n' +
-                        '<:nitro_boost:1463269280123453491> promo code 3 miesiące nitro - 4 zł\n\n' +
+                        '<:nitrobasic:1463269358670319626> discord nitro basic 1m - 7 zł\n' +
+                        '<:nitrobasic:1463269358670319626> discord nitro basic 1y - soon\n' +
+                        '<:nitroboost:1463269280123453491> discord nitro boost 1m - 20 zł\n' +
+                        '<:nitroboost:1463269280123453491> discord nitro boost 1y - soon\n' +
+                        '<:nitroboost:1463269280123453491> promo code 3 miesiące nitro - 4 zł\n\n' +
 
                         '**Boosty -**\n' +
                         '2 tygodniowe boosty:\n' +
-                        '<:boost:1462444514521256088> 14 boostów - 15 zł\n\n' +
+                        '<:Boost:1462444514521256088> 14 boostów - 15 zł\n\n' +
 
                         '1 miesiąc:\n' +
-                        '<:boost:1462444514521256088> 2 boosty 1lvl - 4 zł\n' +
-                        '<:boost:1462444514521256088> 8 boostów 2lvl - 10 zł\n' +
-                        '<:boost:1462444514521256088> 14 boostów 3lvl - 16 zł\n\n' +
+                        '<:Boost:1462444514521256088> 2 boosty 1lvl - 4 zł\n' +
+                        '<:Boost:1462444514521256088> 8 boostów 2lvl - 10 zł\n' +
+                        '<:Boost:1462444514521256088> 14 boostów 3lvl - 16 zł\n\n' +
 
                         '3 miesiące:\n' +
-                        '<:boost:1462444514521256088> 2 boosty 1lvl - 10 zł\n' +
-                        '<:boost:1462444514521256088> 8 boostów 2lvl - 17 zł\n' +
-                        '<:boost:1462444514521256088> 14 boostów 3lvl - 30 zł'
+                        '<:Boost:1462444514521256088> 2 boosty 1lvl - 10 zł\n' +
+                        '<:Boost:1462444514521256088> 8 boostów 2lvl - 17 zł\n' +
+                        '<:Boost:1462444514521256088> 14 boostów 3lvl - 30 zł'
                 });
             }
 
@@ -76,9 +76,9 @@ module.exports = {
                         .setCustomId('lol_menu')
                         .setPlaceholder('Wybierz kategorię…')
                         .addOptions([
-                            { label: ':1463243204437479545: Skiny', value: 'skins' },
-                            { label: ':1463243204437479545: Przepustki', value: 'passes' },
-                            { label: ':1463243204437479545: Inne', value: 'other' }
+                            { label: '<:lol:1463243204437479545> Skiny', value: 'skins' },
+                            { label: '<:lol:1463243204437479545> Przepustki', value: 'passes' },
+                            { label: '<:lol:1463243204437479545> Inne', value: 'other' }
                         ])
                 );
 
@@ -145,7 +145,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1462444762547228755: **Instagram** :1462444762547228755:\n' +
+                        '<:Instagram:1462444762547228755> **Instagram** <:Instagram:1462444762547228755>\n' +
                         '500 Followers — 9 zł\n' +
                         '1000 Followers — 15 zł\n' +
                         '2500 Followers — 37 zł\n' +
@@ -158,7 +158,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1462444603633307799: **TikTok** :1462444603633307799:\n' +
+                        '<:Tiktok:1462444603633307799> **TikTok** <:Tiktok:1462444603633307799>\n' +
                         '**Followers**\n' +
                         '250 — 6 zł\n' +
                         '500 — 10 zł\n' +
@@ -176,7 +176,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1462444451912749255: **Spotify** :1462444451912749255:\n' +
+                        '<:Spotify:1462444451912749255> **Spotify** <:Spotify:1462444451912749255>\n' +
                         '1000 Followers — 5 zł\n' +
                         '2500 Followers — 8 zł\n' +
                         '5000 Followers — 11 zł'
@@ -187,7 +187,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1462444709602398280: **Twitch** :1462444709602398280:\n' +
+                        '<:Twitch:1462444709602398280> **Twitch** <:Twitch:1462444709602398280>\n' +
                         '250 Followers — 4 zł\n' +
                         '500 Followers — 6 zł\n' +
                         '1000 Followers — 10 zł\n' +
@@ -203,7 +203,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1462444416252772433: **YouTube** :1462444416252772433:\n' +
+                        '<:You:1462444416252772433> **YouTube** <:You:1462444416252772433>\n' +
                         'SOON'
                 });
             }
@@ -212,7 +212,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1473361345813676236: **Kick** :1473361345813676236:\n' +
+                        '<:kick:1473361345813676236> **Kick** <:kick:1473361345813676236>\n' +
                         '**Widzowie/h**\n' +
                         '10 — 1 zł\n' +
                         '25 — 2 zł\n' +
@@ -234,7 +234,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1463243204437479545: **CENNIK SKINÓW LOL**\n' +
+                        '<:lol:1463243204437479545> **CENNIK SKINÓW LOL**\n' +
                         'Niezwykłe – 520 RP ~ 15 zł\n' +
                         'Rzadkie – 750 RP ~ 23 zł\n' +
                         'Epickie – 1350 RP ~ 45 zł\n' +
@@ -248,7 +248,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1463243204437479545: **CENY PRZEPUSTEK LOL**\n' +
+                        '<:lol:1463243204437479545> **CENY PRZEPUSTEK LOL**\n' +
                         'Standardowa przepustka – 1650 RP ~ 55 zł\n' +
                         'Przepustka Bundle – 2650 RP ~ 78 zł\n' +
                         'Przepustka Bundle Premium – 3650 RP ~ 100 zł'
@@ -259,7 +259,7 @@ module.exports = {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        ':1463243204437479545: **INNE**\n' +
+                        '<:lol:1463243204437479545> **INNE**\n' +
                         'Tajemnicza skórka – 20 zł\n' +
                         'Tajemnicza skórka premium – 30 zł\n' +
                         'Ikona – 10 zł\n' +

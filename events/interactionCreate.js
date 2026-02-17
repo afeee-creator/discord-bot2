@@ -13,17 +13,34 @@ module.exports = {
 
             const value = interaction.values[0];
 
-            // DISCORD
+            // DISCORD — TWÓJ POPRAWIONY TEKST
             if (value === 'discord') {
                 return interaction.reply({
                     ephemeral: true,
                     content:
-                        '**DISCORD — CENNIK**\n' +
-                        'Nitro Classic — 8 zł\n' +
-                        'Nitro Basic — 10 zł\n' +
-                        'Nitro Full — 15 zł\n' +
-                        'Boost 1x — 2 zł\n' +
-                        'Boost 2x — 3 zł'
+                        '**DISCORD — CENNIK**\n\n' +
+
+                        '**Nitro -**\n' +
+                        'D1SC0RD N1TR0 GIFT\n' +
+                        '<:nitro_basic:1463269358670319626> discord nitro basic 1m - 7 zł\n' +
+                        '<:nitro_basic:1463269358670319626> discord nitro basic 1y - soon\n' +
+                        '<:nitro_boost:1463269280123453491> discord nitro boost 1m - 20 zł\n' +
+                        '<:nitro_boost:1463269280123453491> discord nitro boost 1y - soon\n' +
+                        '<:nitro_boost:1463269280123453491> promo code 3 miesiące nitro - 4 zł\n\n' +
+
+                        '**Boosty -**\n' +
+                        '2 tygodniowe boosty:\n' +
+                        '<:boost:1462444514521256088> 14 boostów - 15 zł\n\n' +
+
+                        '1 miesiąc:\n' +
+                        '<:boost:1462444514521256088> 2 boosty 1lvl - 4 zł\n' +
+                        '<:boost:1462444514521256088> 8 boostów 2lvl - 10 zł\n' +
+                        '<:boost:1462444514521256088> 14 boostów 3lvl - 16 zł\n\n' +
+
+                        '3 miesiące:\n' +
+                        '<:boost:1462444514521256088> 2 boosty 1lvl - 10 zł\n' +
+                        '<:boost:1462444514521256088> 8 boostów 2lvl - 17 zł\n' +
+                        '<:boost:1462444514521256088> 14 boostów 3lvl - 30 zł'
                 });
             }
 

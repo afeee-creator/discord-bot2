@@ -22,13 +22,34 @@ module.exports = {
             .setCustomId('shop_menu')
             .setPlaceholder('Wybierz kategorię…')
             .addOptions([
-                { label: 'Discord', value: 'discord' },
-                { label: 'Social Boosting', value: 'social' },
-                { label: 'VPN', value: 'vpn' },
-                { label: 'League of Legends', value: 'lol' },
-                { label: 'Streamingi', value: 'streamingi' },
-                { label: 'Inne', value: 'inne' },
-                { label: 'Metody / Dostawcy', value: 'metody' }
+                {
+                    label: ':1470835571122376878: Discord',
+                    value: 'discord'
+                },
+                {
+                    label: ':1470835571122376878: Social Boosting',
+                    value: 'social'
+                },
+                {
+                    label: ':1470835571122376878: VPN',
+                    value: 'vpn'
+                },
+                {
+                    label: ':1470835571122376878: League of Legends',
+                    value: 'lol'
+                },
+                {
+                    label: ':1470835571122376878: Streamingi',
+                    value: 'streamingi'
+                },
+                {
+                    label: ':1470835571122376878: Inne',
+                    value: 'inne'
+                },
+                {
+                    label: ':1470835571122376878: Metody / Dostawcy',
+                    value: 'metody'
+                }
             ]);
 
         const row = new ActionRowBuilder().addComponents(menu);

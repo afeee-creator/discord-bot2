@@ -44,6 +44,16 @@ module.exports = {
                 });
             }
 
+            // ⭐ VPN — DODANE + EMOTKA SURFSHARK
+            if (value === 'vpn') {
+                return interaction.reply({
+                    ephemeral: true,
+                    content:
+                        '**VPN**\n\n' +
+                        '<:SurfShark:1462454856332607508> Surfshark Lifetime — 7 zł'
+                });
+            }
+
             // SOCIAL BOOSTING — SELECT MENU
             if (value === 'social') {
 

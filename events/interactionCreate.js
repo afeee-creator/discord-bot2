@@ -315,6 +315,28 @@ module.exports = {
                     embeds: [translated]
                 });
             }
+
+            // -------------------------------
+            // PRZYCISK 🇬🇧 TRANSLATE (SHOP PANEL)
+            // -------------------------------
+            if (interaction.customId === 'translate_shop') {
+
+                const translatedShop = new EmbedBuilder()
+                    .setColor('#5865F2')
+                    .setTitle('💜 VNV‑SHOP — PRICE LIST')
+                    .setDescription(
+                        '**At VNV‑SHOP we offer a wide range of services:**\n' +
+                        'nitro, boosts, social boosting, streaming services, methods and many other products.\n\n' +
+                        '**Each category has been carefully prepared** to give you quick access to the full offer and current prices.\n\n' +
+                        '**Browse the sections below and choose the category you are interested in.**\n' +
+                        'Let us guide you through the offer in a simple, clear and professional way.'
+                    );
+
+                return interaction.reply({
+                    ephemeral: true,
+                    embeds: [translatedShop]
+                });
+            }
         }
     }
 };

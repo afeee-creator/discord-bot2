@@ -3,6 +3,8 @@ const {
     EmbedBuilder,
     ActionRowBuilder,
     StringSelectMenuBuilder,
+    ButtonBuilder,
+    ButtonStyle,
     PermissionFlagsBits
 } = require('discord.js');
 
@@ -14,7 +16,7 @@ module.exports = {
 
     async execute(interaction) {
         const embed = new EmbedBuilder()
-            .setColor('#6A0DAD') // elegancki ciemny fiolet
+            .setColor('#6A0DAD')
             .setTitle('🎫 VNV-SHOP × STWÓRZ TICKET')
             .setDescription(
                 '**Masz problem, chcesz złożyć zamówienie lub masz jakieś pytania?**\n' +
@@ -51,11 +53,19 @@ module.exports = {
                 }
             );
 
+        // ⭐ PRZYCISK TRANSLATE (🇬🇧 + Translate)
+        const translateButton = new ButtonBuilder()
+            .setCustomId('translate_ticket')
+            .setLabel('Translate')
+            .setEmoji('🇬🇧')
+            .setStyle(ButtonStyle.Secondary);
+
         const row = new ActionRowBuilder().addComponents(menu);
+        const row2 = new ActionRowBuilder().addComponents(translateButton);
 
         await interaction.reply({
             embeds: [embed],
-            components: [row]
+            components: [row, row2]
         });
     }
 };

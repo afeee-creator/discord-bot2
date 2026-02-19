@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -59,8 +59,16 @@ module.exports = {
                 }
             ]);
 
-        const row = new ActionRowBuilder().addComponents(menu);
+        // ⭐ PRZYCISK TRANSLATE
+        const translateButton = new ButtonBuilder()
+            .setCustomId('translate_shop')
+            .setLabel('Translate')
+            .setEmoji('🇬🇧')
+            .setStyle(ButtonStyle.Secondary);
 
-        await interaction.reply({ embeds: [embed], components: [row] });
+        const row = new ActionRowBuilder().addComponents(menu);
+        const row2 = new ActionRowBuilder().addComponents(translateButton);
+
+        await interaction.reply({ embeds: [embed], components: [row, row2] });
     }
 };

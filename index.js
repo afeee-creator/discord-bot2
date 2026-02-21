@@ -13,8 +13,8 @@ const client = new Client({
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildMessages,   // potrzebne do widzenia wiadomości
-        GatewayIntentBits.MessageContent    // potrzebne do czytania treści wiadomości
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
     ]
 });
 
@@ -51,23 +51,58 @@ client.once('ready', async () => {
         console.error(error);
     }
 
-    // ====== DYNAMICZNY STATUS: OGLĄDA X OSÓB ONLINE ======
+    // ====== WCZYTANIE LICZNIKA TICKETÓW ======
+    let tickets = 0;
+
+    try {
+        const data = JSON.parse(fs.readFileSync('./tickets.json', 'utf8'));
+        tickets = data.count || 0;
+    } catch (err) {
+        console.log("Brak tickets.json — tworzę nowy plik.");
+        fs.writeFileSync('./tickets.json', JSON.stringify({ count: 0 }, null, 2));
+    }
+
+    // ====== ROTACJA STATUSÓW ======
+    const statuses = [
+        () => ({ text: 'VNV‑SHOP — najlepsze ceny', type: 3 }),
+
+        () => {
+            const guild = client.guilds.cache.get(process.env.GUILD_ID);
+            if (!guild) return { text: 'VNV‑SHOP', type: 3 };
+
+            const onlineMembers = guild.members.cache.filter(
+                m => m.presence && m.presence.status !== 'offline'
+            ).size;
+
+            return { text: `${onlineMembers} osób online`, type: 3 };
+        },
+
+        () => ({ text: 'VNV‑SHOP — częste konkursy', type: 3 }),
+
+        () => ({ text: `Zrobiliśmy już ${tickets} ticketów`, type: 3 })
+    ];
+
+    let index = 0;
+
     setInterval(() => {
-        const guild = client.guilds.cache.get(process.env.GUILD_ID);
-        if (!guild) return;
-
-        const onlineMembers = guild.members.cache.filter(
-            m => m.presence && m.presence.status !== 'offline'
-        ).size;
-
-        client.user.setPresence({
-            activities: [{
-                name: `${onlineMembers} osób online`,
-                type: 3 // WATCHING
-            }],
-            status: 'online'
-        });
+        const status = statuses[index]();
+        client.user.setActivity(status.text, { type: status.type });
+        index = (index + 1) % statuses.length;
     }, 10000);
+});
+
+// ====== LICZENIE TICKETÓW (ZAPIS DO PLIKU) ======
+
+client.on('channelCreate', channel => {
+    if (channel.name.startsWith('ticket-')) {
+        try {
+            const data = JSON.parse(fs.readFileSync('./tickets.json', 'utf8'));
+            data.count++;
+            fs.writeFileSync('./tickets.json', JSON.stringify(data, null, 2));
+        } catch (err) {
+            console.error("Błąd zapisu tickets.json:", err);
+        }
+    }
 });
 
 // ====== OBSŁUGA KOMEND I PRZYCISKÓW ======

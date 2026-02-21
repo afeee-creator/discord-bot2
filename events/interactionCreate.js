@@ -65,12 +65,36 @@ module.exports = {
                             .setCustomId('social_menu')
                             .setPlaceholder('Wybierz platformę…')
                             .addOptions([
-                                { label: 'Instagram', value: 'ig' },
-                                { label: 'TikTok', value: 'tt' },
-                                { label: 'Spotify', value: 'sp' },
-                                { label: 'Twitch', value: 'tw' },
-                                { label: 'YouTube', value: 'yt' },
-                                { label: 'Kick', value: 'kick' }
+                                {
+                                    label: 'Instagram',
+                                    value: 'ig',
+                                    emoji: { id: '1462444762547228755', name: 'Instagram' }
+                                },
+                                {
+                                    label: 'TikTok',
+                                    value: 'tt',
+                                    emoji: { id: '1462444603633307799', name: 'Tiktok' }
+                                },
+                                {
+                                    label: 'Spotify',
+                                    value: 'sp',
+                                    emoji: { id: '1462444451912749255', name: 'Spotify' }
+                                },
+                                {
+                                    label: 'Twitch',
+                                    value: 'tw',
+                                    emoji: { id: '1462444709602398280', name: 'Twitch' }
+                                },
+                                {
+                                    label: 'YouTube',
+                                    value: 'yt',
+                                    emoji: { id: '1462444416252772433', name: 'You' }
+                                },
+                                {
+                                    label: 'Kick',
+                                    value: 'kick',
+                                    emoji: { id: '1473361345813676236', name: 'kick' }
+                                }
                             ])
                     );
 

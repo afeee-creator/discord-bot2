@@ -139,7 +139,7 @@ module.exports = {
                 }
 
                 // STREAMINGI
-                if (value === 'streaming') {
+                if (value === 'streamingi') {
                     return interaction.reply({
                         ephemeral: true,
                         content:
@@ -148,8 +148,8 @@ module.exports = {
                             'Crunchyroll — 4 zł\n' +
                             'Molotov.tv — 5 zł\n' +
                             'HBO Max — 7 zł\n\n' +
-                            'Szukasz innych? Zapytaj w tickecie ^^
-                            'Are u looking for others? Ask in ticket ^^
+                            'Szukasz innych? Zapytaj w tickecie ^^\n' +
+                            'Are you looking for others? Ask in ticket ^^'
                     });
                 }
 

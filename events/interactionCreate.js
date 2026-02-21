@@ -317,6 +317,29 @@ module.exports = {
             }
 
             // -------------------------------
+            // PRZYCISK 🇬🇧 TRANSLATE — OPCJE MENU (TICKET PANEL)
+            // -------------------------------
+            if (interaction.customId === 'translate_ticket_options') {
+
+                const translatedOptions = new EmbedBuilder()
+                    .setColor('#5865F2')
+                    .setTitle('🎫 Ticket Categories — English Version')
+                    .setDescription(
+                        '**Here are the available ticket categories:**\n\n' +
+                        '📦 **Orders** — Open a ticket regarding an order\n' +
+                        '🛠️ **Support** — Get technical support\n' +
+                        '🤝 **Partnership** — Start a partnership\n' +
+                        '⚠️ **Order issue** — Report a problem with an order\n\n' +
+                        '*Select the appropriate category from the menu above.*'
+                    );
+
+                return interaction.reply({
+                    ephemeral: true,
+                    embeds: [translatedOptions]
+                });
+            }
+
+            // -------------------------------
             // PRZYCISK 🇬🇧 TRANSLATE (SHOP PANEL)
             // -------------------------------
             if (interaction.customId === 'translate_shop') {

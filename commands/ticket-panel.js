@@ -53,15 +53,22 @@ module.exports = {
                 }
             );
 
-        // ⭐ PRZYCISK TRANSLATE (🇬🇧 + Translate)
+        // ⭐ PRZYCISK 1 — Translate (tłumaczy cały panel)
         const translateButton = new ButtonBuilder()
             .setCustomId('translate_ticket')
             .setLabel('Translate')
             .setEmoji('🇬🇧')
             .setStyle(ButtonStyle.Secondary);
 
+        // ⭐ PRZYCISK 2 — Translate Options (tłumaczy opcje select menu)
+        const translateOptionsButton = new ButtonBuilder()
+            .setCustomId('translate_ticket_options')
+            .setLabel('Translate Options')
+            .setEmoji('🇬🇧')
+            .setStyle(ButtonStyle.Secondary);
+
         const row = new ActionRowBuilder().addComponents(menu);
-        const row2 = new ActionRowBuilder().addComponents(translateButton);
+        const row2 = new ActionRowBuilder().addComponents(translateButton, translateOptionsButton);
 
         await interaction.reply({
             embeds: [embed],

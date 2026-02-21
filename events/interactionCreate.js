@@ -29,18 +29,18 @@ module.exports = {
                             '<:nitrobasic:1463269358670319626> discord nitro basic 1y - soon\n' +
                             '<:nitroboost:1463269280123453491> discord nitro boost 1m - 20 zł\n' +
                             '<:nitroboost:1463269280123453491> discord nitro boost 1y - soon\n' +
-                            '<:nitroboost:1463269280123453491> promo code 3 miesiące nitro - 4 zł\n\n' +
+                            '<:nitroboost:1463269280123453491> promo code 3 month nitro - 4 zł\n\n' +
 
-                            '**Boosty -**\n' +
-                            '2 tygodniowe boosty:\n' +
+                            '**Boosty/boost -**\n' +
+                            '2 tygodniowe boosty/2 weeks boost:\n' +
                             '<:Boost:1462444514521256088> 14 boostów - 15 zł\n\n' +
 
-                            '1 miesiąc:\n' +
+                            '1 miesiąc/1 month:\n' +
                             '<:Boost:1462444514521256088> 2 boosty 1lvl - 4 zł\n' +
                             '<:Boost:1462444514521256088> 8 boostów 2lvl - 10 zł\n' +
                             '<:Boost:1462444514521256088> 14 boostów 3lvl - 16 zł\n\n' +
 
-                            '3 miesiące:\n' +
+                            '3 miesiące/3 month:\n' +
                             '<:Boost:1462444514521256088> 2 boosty 1lvl - 10 zł\n' +
                             '<:Boost:1462444514521256088> 8 boostów 2lvl - 17 zł\n' +
                             '<:Boost:1462444514521256088> 14 boostów 3lvl - 30 zł'
@@ -114,17 +114,17 @@ module.exports = {
                             .setPlaceholder('Wybierz kategorię…')
                             .addOptions([
                                 {
-                                    label: 'Skiny',
+                                    label: 'Skiny/Skins',
                                     value: 'skins',
                                     emoji: { name: 'lol', id: '1463243204437479545' }
                                 },
                                 {
-                                    label: 'Przepustki',
+                                    label: 'Przepustki/Pass',
                                     value: 'passes',
                                     emoji: { name: 'lol', id: '1463243204437479545' }
                                 },
                                 {
-                                    label: 'Inne',
+                                    label: 'Inne/Other',
                                     value: 'other',
                                     emoji: { name: 'lol', id: '1463243204437479545' }
                                 }
@@ -139,7 +139,7 @@ module.exports = {
                 }
 
                 // STREAMINGI
-                if (value === 'streamingi') {
+                if (value === 'streaming') {
                     return interaction.reply({
                         ephemeral: true,
                         content:
@@ -148,7 +148,8 @@ module.exports = {
                             'Crunchyroll — 4 zł\n' +
                             'Molotov.tv — 5 zł\n' +
                             'HBO Max — 7 zł\n\n' +
-                            'Szukasz innych? Zapytaj w tickecie ^^'
+                            'Szukasz innych? Zapytaj w tickecie ^^
+                            'Are u looking for others? Ask in ticket ^^
                     });
                 }
 
@@ -157,8 +158,8 @@ module.exports = {
                     return interaction.reply({
                         ephemeral: true,
                         content:
-                            '**INNE**\n\n' +
-                            '1 miesiąc ChatGPT+ — 7 zł\n' +
+                            '**INNE/OTHERS**\n\n' +
+                            '1 month ChatGPT+ — 7 zł\n' +
                             'Lifetime Duolingo Premium — 4 zł\n' +
                             'CapCut Pro — 5 zł'
                     });

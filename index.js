@@ -94,7 +94,12 @@ client.once('ready', async () => {
 // ====== LICZENIE TICKETÓW (ZAPIS DO PLIKU) ======
 
 client.on('channelCreate', channel => {
-    if (channel.name.startsWith('ticket-')) {
+    if (
+        channel.name.startsWith('zamowienie-') ||
+        channel.name.startsWith('support-') ||
+        channel.name.startsWith('wspolpraca-') ||
+        channel.name.startsWith('problem-')
+    ) {
         try {
             const data = JSON.parse(fs.readFileSync('./tickets.json', 'utf8'));
             data.count++;

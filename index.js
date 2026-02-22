@@ -19,6 +19,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.ticketCount = 0; // globalny licznik ticketów w pamięci
 
 // ====== ŁADOWANIE KOMEND Z FOLDERU "commands" ======
 
@@ -51,15 +52,14 @@ client.once('ready', async () => {
         console.error(error);
     }
 
-    // ====== WCZYTANIE LICZNIKA TICKETÓW ======
-    let tickets = 0;
-
+    // ====== WCZYTANIE LICZNIKA TICKETÓW Z ticketCounters.json ======
     try {
-        const data = JSON.parse(fs.readFileSync('./tickets.json', 'utf8'));
-        tickets = data.count || 0;
+        const countersPath = path.join(__dirname, 'ticketCounters.json');
+        const counters = JSON.parse(fs.readFileSync(countersPath, 'utf8'));
+        client.ticketCount = Object.values(counters).reduce((a, b) => a + b, 0);
     } catch (err) {
-        console.log("Brak tickets.json — tworzę nowy plik.");
-        fs.writeFileSync('./tickets.json', JSON.stringify({ count: 0 }, null, 2));
+        console.log("Nie udało się wczytać ticketCounters.json, ustawiam 0.");
+        client.ticketCount = 0;
     }
 
     // ====== ROTACJA STATUSÓW ======
@@ -79,7 +79,7 @@ client.once('ready', async () => {
 
         () => ({ text: 'VNV‑SHOP — częste konkursy', type: 3 }),
 
-        () => ({ text: `Zrobiliśmy już ${tickets} ticketów`, type: 3 })
+        () => ({ text: `Zrobiliśmy już ${client.ticketCount} ticketów`, type: 3 })
     ];
 
     let index = 0;
@@ -89,25 +89,6 @@ client.once('ready', async () => {
         client.user.setActivity(status.text, { type: status.type });
         index = (index + 1) % statuses.length;
     }, 10000);
-});
-
-// ====== LICZENIE TICKETÓW (ZAPIS DO PLIKU) ======
-
-client.on('channelCreate', channel => {
-    if (
-        channel.name.startsWith('zamowienie-') ||
-        channel.name.startsWith('support-') ||
-        channel.name.startsWith('wspolpraca-') ||
-        channel.name.startsWith('problem-')
-    ) {
-        try {
-            const data = JSON.parse(fs.readFileSync('./tickets.json', 'utf8'));
-            data.count++;
-            fs.writeFileSync('./tickets.json', JSON.stringify(data, null, 2));
-        } catch (err) {
-            console.error("Błąd zapisu tickets.json:", err);
-        }
-    }
 });
 
 // ====== OBSŁUGA KOMEND I PRZYCISKÓW ======

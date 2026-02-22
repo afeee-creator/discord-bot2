@@ -23,7 +23,8 @@ function saveCounters() {
 module.exports = {
     name: 'interactionCreate',
 
-    async execute(interaction) {
+    async execute(interaction, client) {
+
         // ====== OTWIERANIE TICKETA ======
         if (interaction.isStringSelectMenu() && interaction.customId === 'ticket_select') {
             const type = interaction.values[0];
@@ -40,9 +41,13 @@ module.exports = {
                 });
             }
 
-            // Zwiększamy licznik
+            // Zwiększamy licznik w pliku
             counters[type]++;
             saveCounters();
+
+            // Zwiększamy globalny licznik dla statusu
+            if (!client.ticketCount) client.ticketCount = 0;
+            client.ticketCount++;
 
             const number = String(counters[type]).padStart(3, '0');
 
@@ -70,7 +75,7 @@ module.exports = {
                         ]
                     },
                     {
-                        id: interaction.client.user.id,
+                        id: client.user.id,
                         allow: [PermissionFlagsBits.ViewChannel]
                     }
                 ]
@@ -133,11 +138,9 @@ module.exports = {
         if (interaction.isButton() && interaction.customId === 'close_ticket') {
             const channel = interaction.channel;
 
-            // Pobieranie wiadomości
             const messages = await channel.messages.fetch({ limit: 100 });
             const sorted = messages.sort((a, b) => a.createdTimestamp - b.createdTimestamp);
 
-            // Tworzenie HTML
             let html = `
 <!DOCTYPE html>
 <html>

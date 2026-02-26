@@ -5,33 +5,19 @@ const {
     ButtonStyle,
     ModalBuilder,
     TextInputBuilder,
-    TextInputStyle,
-    AttachmentBuilder
+    TextInputStyle
 } = require('discord.js');
-
-const { createCanvas } = require('canvas');
 
 // Twoje role
 const VERIFIED_ROLE_ID = '1450927027665502387';
 const UNVERIFIED_ROLE_ID = '1450927027665502385';
 
-// Generowanie captcha
-function generateCaptcha() {
-    const canvas = createCanvas(200, 70);
-    const ctx = canvas.getContext('2d');
-
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 200, 70);
-
+// Funkcja generująca kod captcha
+function generateCode() {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let code = '';
     for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)];
-
-    ctx.font = '40px Sans';
-    ctx.fillStyle = '#000000';
-    ctx.fillText(code, 40, 50);
-
-    return { buffer: canvas.toBuffer(), code };
+    return code;
 }
 
 module.exports = {
@@ -44,19 +30,15 @@ module.exports = {
         // -------------------------------
         if (interaction.isButton() && interaction.customId === 'verify_btn') {
 
-            const { buffer, code } = generateCaptcha();
+            const code = generateCode();
 
-            // zapisujemy kod captcha dla użytkownika
             client.captcha = client.captcha || {};
             client.captcha[interaction.user.id] = code;
 
-            const attachment = new AttachmentBuilder(buffer, { name: 'captcha.png' });
-
             const embed = new EmbedBuilder()
                 .setTitle('🔐 Weryfikacja — przepisz kod')
-                .setDescription('Przepisz kod z obrazka w okienku, które zaraz się pojawi.')
-                .setColor('#6A0DAD')
-                .setImage('attachment://captcha.png');
+                .setDescription(`Twój kod weryfikacyjny:\n\n**${code}**\n\nKliknij przycisk poniżej, aby wpisać kod.`)
+                .setColor('#6A0DAD');
 
             const row = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
@@ -67,7 +49,6 @@ module.exports = {
 
             return interaction.reply({
                 embeds: [embed],
-                files: [attachment],
                 components: [row],
                 ephemeral: true
             });
@@ -84,7 +65,7 @@ module.exports = {
 
             const input = new TextInputBuilder()
                 .setCustomId('captcha_input')
-                .setLabel('Kod z obrazka')
+                .setLabel('Kod z ekranu')
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true);
 

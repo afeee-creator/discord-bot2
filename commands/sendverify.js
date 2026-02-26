@@ -1,10 +1,12 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
-    name: 'sendverify',
-    description: 'Wysyła panel weryfikacji',
+    data: new SlashCommandBuilder()
+        .setName('sendverify')
+        .setDescription('Wysyła panel weryfikacji'),
 
     async execute(interaction) {
+
         const embed = new EmbedBuilder()
             .setTitle('🔐 Weryfikacja')
             .setDescription('Kliknij przycisk poniżej, aby rozpocząć weryfikację.')
